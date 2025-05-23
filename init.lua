@@ -299,7 +299,16 @@ require('lazy').setup({
   },
   {
     'farmergreg/vim-lastplace',
-    version = 'v4.6.0'
+    version = 'v4.6.0',
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      scope = { enabled = false },
+    },
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
