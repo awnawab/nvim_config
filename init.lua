@@ -297,6 +297,10 @@ require('lazy').setup({
     'echasnovski/mini.nvim',
     version = '*',
   },
+  {
+    'farmergreg/vim-lastplace',
+    version = 'v4.6.0'
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
