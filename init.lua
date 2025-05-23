@@ -904,6 +904,7 @@ require('lazy').setup({
       require('tokyonight').setup {
         styles = {
           comments = { italic = false }, -- Disable italics in comments
+          keywords = { italic = false }, -- Disable italics in keywords
         },
       }
 
