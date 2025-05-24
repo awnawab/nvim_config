@@ -753,6 +753,29 @@ require('lazy').setup({
       }
       require('lspconfig').pyright.setup {
         capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              diagnosticSeverityOverrides = {
+                --                reportPossiblyUnboundVariable = 'none',
+                reportAttributeAccessIssue = 'none',
+              },
+            },
+          },
+        },
+        handlers = {
+          ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+            -- Filter out specific diagnostics
+            result.diagnostics = vim.tbl_filter(function(diagnostic)
+              local match = string.match(diagnostic.message, 'No parameter named')
+              match = match or string.match(diagnostic.message, 'Cannot access attribute')
+              match = match or string.match(diagnostic.message, 'not supported for types')
+              return not match
+            end, result.diagnostics)
+
+            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+          end,
+        },
       }
       require('lspconfig').cmake.setup {
         capabilities = capabilities,
