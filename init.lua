@@ -702,7 +702,7 @@ require('lazy').setup({
       --        on Mason handlers, which weren't working, the LSPs are configured one-by-one
       --        after Mason has been configured.
       local servers = {
-        pyright = {},
+        --pyright = {},
         cmake = {},
         fortls = {},
         lua_ls = {},
