@@ -784,6 +784,17 @@ require('lazy').setup({
       }
       require('lspconfig').fortls.setup {
         capabilities = capabilities,
+        handlers = {
+          ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+            -- Filter out specific diagnostics
+            result.diagnostics = vim.tbl_filter(function(diagnostic)
+              local match = string.match(diagnostic.message, 'not found in project')
+              return not match
+            end, result.diagnostics)
+
+            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+          end,
+        },
       }
     end,
   },
