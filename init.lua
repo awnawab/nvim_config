@@ -443,7 +443,7 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-          initial_mode = 'normal',
+          initial_mode = 'insert',
           mappings = {
             i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           },
