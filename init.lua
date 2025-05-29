@@ -221,18 +221,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- treat fypp/hypp as fortran files
-vim.filetype.add({
+vim.filetype.add {
   pattern = {
-    [".*fypp"] = 'fortran',
-    [".*hypp"] = 'fortran',
+    ['.*fypp'] = 'fortran',
+    ['.*hypp'] = 'fortran',
   },
-})
+}
 
-vim.filetype.add({
+vim.filetype.add {
   pattern = {
-    [".*config"] = 'toml',
+    ['.*config'] = 'toml',
   },
-})
+}
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -261,6 +261,13 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+
+  defaults = {
+    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    lazy = true,
+  },
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
 
