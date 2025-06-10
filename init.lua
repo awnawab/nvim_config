@@ -238,9 +238,22 @@ vim.filetype.add {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "cmake",
   callback = function()
-    vim.opt_local.smartindent = false
-    vim.opt_local.cindent = false
-    vim.opt_local.indentexpr = ""
+    vim.opt_local.indentkeys = ""
+  end,
+})
+
+-- disable auto-indentation for toml
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "toml",
+  callback = function()
+    vim.opt_local.indentkeys = ""
+  end,
+})
+
+-- disable auto-indentation for Fortran
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fortran",
+  callback = function()
     vim.opt_local.indentkeys = ""
   end,
 })
