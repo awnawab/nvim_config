@@ -234,6 +234,17 @@ vim.filetype.add {
   },
 }
 
+-- disable auto-indentation for cmake
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "cmake",
+  callback = function()
+    vim.opt_local.smartindent = false
+    vim.opt_local.cindent = false
+    vim.opt_local.indentexpr = ""
+    vim.opt_local.indentkeys = ""
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
