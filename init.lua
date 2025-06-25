@@ -235,26 +235,26 @@ vim.filetype.add {
 }
 
 -- disable auto-indentation for cmake
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "cmake",
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'cmake',
   callback = function()
-    vim.opt_local.indentkeys = ""
+    vim.opt_local.indentkeys = ''
   end,
 })
 
 -- disable auto-indentation for toml
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "toml",
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'toml',
   callback = function()
-    vim.opt_local.indentkeys = ""
+    vim.opt_local.indentkeys = ''
   end,
 })
 
 -- disable auto-indentation for Fortran
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "fortran",
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'fortran',
   callback = function()
-    vim.opt_local.indentkeys = ""
+    vim.opt_local.indentkeys = ''
   end,
 })
 
@@ -529,6 +529,9 @@ require('lazy').setup({
 
       -- Only one of these is needed.
       'nvim-telescope/telescope.nvim', -- optional
+    },
+    setup = {
+      disable_mouse = true,
     },
   },
   -- LSP Plugins
