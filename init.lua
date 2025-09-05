@@ -221,12 +221,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- treat fypp/hypp as fortran files
-vim.filetype.add {
-  pattern = {
-    ['.*fypp'] = 'fortran',
-    ['.*hypp'] = 'fortran',
-  },
-}
+-- vim.filetype.add {
+--   pattern = {
+--     ['.*fypp'] = 'fortran',
+--     ['.*hypp'] = 'fortran',
+--   },
+-- }
 
 vim.filetype.add {
   pattern = {
