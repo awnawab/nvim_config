@@ -331,6 +331,7 @@ require('lazy').setup({
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown' },
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
@@ -525,6 +526,8 @@ require('lazy').setup({
   },
   {
     'NeogitOrg/neogit',
+    cmd = 'Neogit',
+    lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim', -- required
       'sindrets/diffview.nvim', -- optional - Diff integration
