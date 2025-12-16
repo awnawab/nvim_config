@@ -792,7 +792,7 @@ require('lazy').setup({
         --          end,
         --        },
       }
-      require('lspconfig').lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -801,8 +801,8 @@ require('lazy').setup({
             },
           },
         },
-      }
-      require('lspconfig').pyright.setup {
+      })
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
         settings = {
           python = {
@@ -827,11 +827,11 @@ require('lazy').setup({
             vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
           end,
         },
-      }
-      require('lspconfig').cmake.setup {
+      })
+      vim.lsp.config('cmake', {
         capabilities = capabilities,
-      }
-      require('lspconfig').fortls.setup {
+      })
+      vim.lsp.config('fortls', {
         capabilities = capabilities,
         handlers = {
           ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
@@ -844,7 +844,7 @@ require('lazy').setup({
             vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
           end,
         },
-      }
+      })
     end,
   },
 
