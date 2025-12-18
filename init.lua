@@ -828,6 +828,7 @@ require('lazy').setup({
           end,
         },
       })
+      vim.lsp.enable('pyright')
       vim.lsp.config('cmake', {
         capabilities = capabilities,
       })
