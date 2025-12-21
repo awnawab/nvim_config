@@ -821,6 +821,8 @@ require('lazy').setup({
               local match = string.match(diagnostic.message, 'No parameter named')
               match = match or string.match(diagnostic.message, 'Cannot access attribute')
               match = match or string.match(diagnostic.message, 'not supported for types')
+              match = match or string.match(diagnostic.message, 'Object of type "None" is not subscriptable')
+              match = match or string.match(diagnostic.message, 'is not a known attribute of "None"')
               return not match
             end, result.diagnostics)
 
