@@ -535,8 +535,14 @@ require('lazy').setup({
       -- Only one of these is needed.
       'nvim-telescope/telescope.nvim', -- optional
     },
-    setup = {
+    opts = {
       disable_mouse = true,
+      mappings = {
+        rebase_editor = {
+          ['p'] = false, -- Pick
+          ['d'] = false, -- Drop
+        },
+      },
     },
   },
   -- LSP Plugins
