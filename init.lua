@@ -505,7 +505,11 @@ require('lazy').setup({
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
-          previewer = false,
+          previewer = true,
+          layout_config = {
+            width = 0.8, -- 80% of screen width (default is usually 0.5-0.6)
+            -- or use absolute value: width = 120,
+          },
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
