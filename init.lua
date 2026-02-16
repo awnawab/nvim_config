@@ -676,7 +676,30 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                diagnosticSeverityOverrides = {
+                  reportAttributeAccessIssue = 'none',
+                },
+              },
+            },
+          },
+          handlers = {
+            ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+              result.diagnostics = vim.tbl_filter(function(diagnostic)
+                local match = string.match(diagnostic.message, 'No parameter named')
+                match = match or string.match(diagnostic.message, 'Cannot access attribute')
+                match = match or string.match(diagnostic.message, 'not supported for types')
+                match = match or string.match(diagnostic.message, 'Object of type "None" is not subscriptable')
+                match = match or string.match(diagnostic.message, 'is not a known attribute of "None"')
+                return not match
+              end, result.diagnostics)
+              vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+            end,
+          },
+        },
         -- rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -699,6 +722,9 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         -- You can add other tools here that you want Mason to install
       })
+
+      -- Remove pyright from mason's install list
+      ensure_installed = vim.tbl_filter(function(name) return name ~= 'pyright' end, ensure_installed)
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
