@@ -534,7 +534,25 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
     end,
   },
-
+  {
+    'NeogitOrg/neogit',
+    cmd = 'Neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+      'sindrets/diffview.nvim', -- optional - Diff integration
+      -- Only one of these is needed.
+      'nvim-telescope/telescope.nvim', -- optional
+    },
+    opts = {
+      disable_mouse = true,
+      mappings = {
+        rebase_editor = {
+          ['p'] = false, -- Pick
+          ['d'] = false, -- Drop
+        },
+      },
+    },
+  },
   -- LSP Plugins
   {
     -- Main LSP Configuration
