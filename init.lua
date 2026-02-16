@@ -713,6 +713,7 @@ require('lazy').setup({
             end,
           },
         },
+        neocmake = {},
         -- rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -737,7 +738,7 @@ require('lazy').setup({
       })
 
       -- Remove pyright from mason's install list
-      ensure_installed = vim.tbl_filter(function(name) return name ~= 'pyright' end, ensure_installed)
+      ensure_installed = vim.tbl_filter(function(name) return name ~= 'pyright' and name ~= 'neocmake' end, ensure_installed)
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
