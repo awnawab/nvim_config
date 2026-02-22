@@ -93,6 +93,9 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Speed up Lua module loading (Neovim 0.9+)
+if vim.loader then vim.loader.enable() end
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -557,6 +560,7 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -751,10 +755,11 @@ require('lazy').setup({
       -- Special Lua Config, as recommended by neovim help docs
       vim.lsp.config('lua-language-server', {
         on_init = function(client)
-          if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
-          end
+          -- Only pull in Neovim runtime/library when editing your Neovim config.
+          -- This avoids a big `nvim_get_runtime_file('', true)` hit for other workspaces.
+          local config_path = vim.fn.stdpath 'config'
+          local root = client.workspace_folders and client.workspace_folders[1] and client.workspace_folders[1].name or nil
+          if not root or (root ~= config_path and not vim.startswith(root, config_path .. '/')) then return end
 
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
@@ -818,7 +823,7 @@ require('lazy').setup({
 
   { -- Autocompletion
     'saghen/blink.cmp',
-    event = 'VimEnter',
+    event = { 'BufReadPre', 'BufNewFile' },
     version = '1.*',
     dependencies = {
       -- Snippet Engine
@@ -974,6 +979,7 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile', 'FileType' },
     config = function()
       local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').setup(filetypes)
