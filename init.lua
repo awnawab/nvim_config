@@ -717,7 +717,17 @@ require('lazy').setup({
             end,
           },
         },
-        neocmake = {},
+        neocmake = {
+          handlers = {
+            ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+              result.diagnostics = vim.tbl_filter(function(diagnostic)
+                local match = string.match(diagnostic.message, 'Line too long')
+                return not match
+              end, result.diagnostics)
+              vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+            end,
+          },
+        },
         -- rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
