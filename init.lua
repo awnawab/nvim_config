@@ -977,6 +977,26 @@ require('lazy').setup({
       -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
 
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_fileinfo = function(args)
+        local filetype = vim.bo.filetype
+        local icon = ''
+
+        if vim.g.have_nerd_font and filetype ~= '' then
+          if _G.MiniIcons ~= nil then
+            icon = _G.MiniIcons.get('filetype', filetype) .. ' '
+          else
+            local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
+            if has_devicons then icon = (devicons.get_icon(vim.fn.expand '%:t', nil, { default = true }) or '') .. ' ' end
+          end
+        end
+
+        if statusline.is_truncated(args.trunc_width) or vim.bo.buftype ~= '' then return icon .. filetype end
+
+        local lines = vim.api.nvim_buf_line_count(0)
+        return string.format('%s%s%s%dL', icon, filetype, filetype == '' and '' or ' ', lines)
+      end
+
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
