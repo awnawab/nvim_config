@@ -719,6 +719,10 @@ require('lazy').setup({
           },
         },
         neocmake = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
           handlers = {
             ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
               result.diagnostics = vim.tbl_filter(function(diagnostic)
