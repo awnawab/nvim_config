@@ -40,10 +40,6 @@ return {
         notify_on_refresh = true,
         notify_on_change = true,
       },
-      file_panel = {
-        size = 10,
-        use_icons = true,
-      },
       mappings_disable_default = false,
     },
     keys = {
